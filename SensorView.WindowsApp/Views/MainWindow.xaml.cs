@@ -1,4 +1,4 @@
-﻿namespace SensorView.WindowsApp
+﻿namespace SensorView.WindowsApp.Views
 {
     /// <summary>
     /// MainWindow.xaml の相互作用ロジック

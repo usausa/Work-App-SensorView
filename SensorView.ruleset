@@ -2,6 +2,7 @@
 <RuleSet Name="SensorView Rules" Description="SensorView Rules" ToolsVersion="15.0">
   <IncludeAll Action="Warning" />
   <Rules AnalyzerId="Microsoft.Analyzers.ManagedCodeAnalysis" RuleNamespace="Microsoft.Rules.Managed">
+    <Rule Id="CA1303" Action="None" />
     <Rule Id="CA1824" Action="None" />
     <Rule Id="CA2210" Action="None" />
   </Rules>
