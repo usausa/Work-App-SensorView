@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SensorView.WindowsApp", "SensorView.WindowsApp\SensorView.WindowsApp.csproj", "{83BAF857-38ED-43DA-827B-D6C0C87DA156}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SensorView.Core", "SensorView.Core\SensorView.Core.csproj", "{69424B1F-9D26-4BAC-9A27-B6366A433DAD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{83BAF857-38ED-43DA-827B-D6C0C87DA156}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83BAF857-38ED-43DA-827B-D6C0C87DA156}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83BAF857-38ED-43DA-827B-D6C0C87DA156}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83BAF857-38ED-43DA-827B-D6C0C87DA156}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69424B1F-9D26-4BAC-9A27-B6366A433DAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69424B1F-9D26-4BAC-9A27-B6366A433DAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69424B1F-9D26-4BAC-9A27-B6366A433DAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69424B1F-9D26-4BAC-9A27-B6366A433DAD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5F1D9A87-47F4-4270-B6CD-77C721F951BA}
+	EndGlobalSection
+EndGlobal
