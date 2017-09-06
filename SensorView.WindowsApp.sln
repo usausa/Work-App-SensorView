@@ -3,9 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SensorView.WindowsApp", "SensorView.WindowsApp\SensorView.WindowsApp.csproj", "{83BAF857-38ED-43DA-827B-D6C0C87DA156}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SensorView.WindowsApp", "SensorView.WindowsApp\SensorView.WindowsApp.csproj", "{C22F044E-EE1D-436D-8084-038B22FD769C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SensorView.Core", "SensorView.Core\SensorView.Core.csproj", "{69424B1F-9D26-4BAC-9A27-B6366A433DAD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SensorView.Core", "SensorView.Core\SensorView.Core.csproj", "{2DE042B8-4E64-4F4A-AFB3-EAA2807C57A5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E163853A-72C6-4225-931F-58448B6CB949}"
+	ProjectSection(SolutionItems) = preProject
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		README.md = README.md
+		SensorView.ruleset = SensorView.ruleset
+		SensorView.WindowsApp.sln.DotSettings = SensorView.WindowsApp.sln.DotSettings
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,19 +22,19 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{83BAF857-38ED-43DA-827B-D6C0C87DA156}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{83BAF857-38ED-43DA-827B-D6C0C87DA156}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{83BAF857-38ED-43DA-827B-D6C0C87DA156}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{83BAF857-38ED-43DA-827B-D6C0C87DA156}.Release|Any CPU.Build.0 = Release|Any CPU
-		{69424B1F-9D26-4BAC-9A27-B6366A433DAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{69424B1F-9D26-4BAC-9A27-B6366A433DAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{69424B1F-9D26-4BAC-9A27-B6366A433DAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{69424B1F-9D26-4BAC-9A27-B6366A433DAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C22F044E-EE1D-436D-8084-038B22FD769C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C22F044E-EE1D-436D-8084-038B22FD769C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C22F044E-EE1D-436D-8084-038B22FD769C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C22F044E-EE1D-436D-8084-038B22FD769C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DE042B8-4E64-4F4A-AFB3-EAA2807C57A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DE042B8-4E64-4F4A-AFB3-EAA2807C57A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DE042B8-4E64-4F4A-AFB3-EAA2807C57A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DE042B8-4E64-4F4A-AFB3-EAA2807C57A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {5F1D9A87-47F4-4270-B6CD-77C721F951BA}
+		SolutionGuid = {288BA943-8412-4722-A70A-4CB3E8432380}
 	EndGlobalSection
 EndGlobal
