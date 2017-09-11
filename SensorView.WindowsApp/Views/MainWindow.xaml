@@ -29,7 +29,7 @@
         <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto" >
             <ListBox
                 SelectionMode="Single"
-                ItemsSource="{Binding Sensors}"
+                ItemsSource="{Binding SensorManager.Sensors}"
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                 Background="{StaticResource TileBackgroundBrush}"
                 BorderThickness="0">

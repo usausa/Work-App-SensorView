@@ -5,6 +5,7 @@
 
     using Autofac;
 
+    using SensorView.WindowsApp.Models;
     using SensorView.WindowsApp.Views;
 
     /// <summary>
@@ -50,6 +51,8 @@
         private void RegisterComponents()
         {
             var builder = new ContainerBuilder();
+
+            builder.RegisterType<SensorManager>().SingleInstance();
 
             builder.RegisterType<MainViewModel>().SingleInstance();
             builder.RegisterType<MainWindow>().SingleInstance();
