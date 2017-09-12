@@ -1,8 +1,8 @@
 ﻿namespace SensorView.Models
 {
-    using Smart.ComponentModel;
-
     using System.Collections.ObjectModel;
+
+    using Smart.ComponentModel;
 
     public class SensorManager : NotificationObject
     {
