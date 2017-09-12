@@ -36,7 +36,7 @@
                 Background="{StaticResource TileBackgroundBrush}"
                 BorderThickness="0">
                 <i:Interaction.Behaviors>
-                    <behaviors:ListBoxSelectionBehavior />
+                    <behaviors:ListBoxSelectionBehavior SelectedItem="{Binding SelectedItem}" />
                 </i:Interaction.Behaviors>
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>

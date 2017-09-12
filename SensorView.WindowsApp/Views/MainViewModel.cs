@@ -8,6 +8,8 @@
     {
         public SensorManager SensorManager { get; }
 
+        public SensorItem SelectedItem { get; set; }
+
         public MainViewModel(SensorManager sensorManager)
         {
             SensorManager = sensorManager;
