@@ -95,8 +95,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Behaviors\ListBoxSelectionBehavior.cs" />
-    <Compile Include="Models\SensorItem.cs" />
-    <Compile Include="Models\SensorManager.cs" />
     <Compile Include="Views\MainViewModel.cs" />
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -146,6 +144,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="App.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SensorView.Core\SensorView.Core.csproj">
+      <Project>{2de042b8-4e64-4f4a-afb3-eaa2807c57a5}</Project>
+      <Name>SensorView.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

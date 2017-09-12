@@ -5,4 +5,9 @@
     <RootNamespace>SensorView</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="M2MqttDotnetCore" Version="1.0.7" />
+    <PackageReference Include="Usa.Smart.Core" Version="1.0.0" />
+  </ItemGroup>
+
 </Project>

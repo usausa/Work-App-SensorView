@@ -1,11 +1,13 @@
 ﻿namespace SensorView.WindowsApp
 {
+#if !DEBUG
     using System;
+#endif
     using System.Windows;
 
     using Autofac;
 
-    using SensorView.WindowsApp.Models;
+    using SensorView.Models;
     using SensorView.WindowsApp.Views;
 
     /// <summary>

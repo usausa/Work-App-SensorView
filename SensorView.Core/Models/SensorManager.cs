@@ -1,8 +1,10 @@
-﻿namespace SensorView.WindowsApp.Models
+﻿namespace SensorView.Models
 {
+    using Smart.ComponentModel;
+
     using System.Collections.ObjectModel;
 
-    public class SensorManager
+    public class SensorManager : NotificationObject
     {
         public ObservableCollection<SensorItem> Sensors { get; }
 

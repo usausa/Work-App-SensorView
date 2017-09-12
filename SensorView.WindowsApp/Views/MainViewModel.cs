@@ -2,7 +2,7 @@
 {
     using System.Collections.ObjectModel;
 
-    using SensorView.WindowsApp.Models;
+    using SensorView.Models;
 
     public class MainViewModel
     {
