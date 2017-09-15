@@ -1,18 +1,32 @@
 ﻿namespace SensorView.WindowsApp.Views
 {
-    using System.Collections.ObjectModel;
+    using SensorView.WindowsApp.Models;
 
-    using SensorView.Models;
+    using Smart.Windows.ViewModels;
 
-    public class MainViewModel
+    /// <summary>
+    ///
+    /// </summary>
+    public sealed class MainViewModel : DisposableViewModelBase
     {
+        /// <summary>
+        ///
+        /// </summary>
         public SensorManager SensorManager { get; }
 
+        /// <summary>
+        ///
+        /// </summary>
         public SensorItem SelectedItem { get; set; }
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="sensorManager"></param>
         public MainViewModel(SensorManager sensorManager)
         {
             SensorManager = sensorManager;
+            SensorManager.Enable = true;
         }
     }
 }

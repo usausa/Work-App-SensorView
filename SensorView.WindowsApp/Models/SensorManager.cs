@@ -1,15 +1,53 @@
-﻿namespace SensorView.Models
+﻿namespace SensorView.WindowsApp.Models
 {
     using System.Collections.ObjectModel;
 
+    using SensorView.Services;
+
     using Smart.ComponentModel;
 
-    public class SensorManager : NotificationObject
+    /// <summary>
+    ///
+    /// </summary>
+    public sealed class SensorManager : NotificationObject
     {
+        private readonly SensorService sensorService;
+
+        private bool enable;
+
+        public bool Enable
+        {
+            get => enable;
+            set
+            {
+                if (SetProperty(ref enable, value))
+                {
+                    if (value)
+                    {
+                        sensorService.Start();
+                    }
+                    else
+                    {
+                        sensorService.Stop();
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
         public ObservableCollection<SensorItem> Sensors { get; }
 
-        public SensorManager()
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="sensorService"></param>
+        public SensorManager(SensorService sensorService)
         {
+            this.sensorService = sensorService;
+
+            // TODO
             Sensors = new ObservableCollection<SensorItem>
             {
                 new SensorItem { DeviceId = "000000000001" },
