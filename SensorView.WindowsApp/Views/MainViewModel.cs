@@ -28,5 +28,14 @@
             SensorManager = sensorManager;
             SensorManager.Enable = true;
         }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected override void Dispose(bool disposing)
+        {
+            SensorManager.Enable = false;
+        }
     }
 }

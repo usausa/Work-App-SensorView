@@ -6,7 +6,6 @@
     using System.Linq;
     using System.Reactive.Disposables;
     using System.Reactive.Linq;
-    using System.Windows.Threading;
 
     using SensorView.Services;
 
@@ -17,13 +16,17 @@
     /// </summary>
     public sealed class SensorManager : NotificationObject, IDisposable
     {
-        private readonly SerialDisposable subscription = new SerialDisposable();
+        private readonly CompositeDisposable subscriptions = new CompositeDisposable();
+
+        private readonly SerialDisposable connection = new SerialDisposable();
 
         private readonly SensorService sensorService;
 
         private readonly IDictionary<string, SensorItem> sensorsByDeviceId = new Dictionary<string, SensorItem>();
 
         private bool enable;
+
+        private bool connected;
 
         /// <summary>
         ///
@@ -37,14 +40,25 @@
                 {
                     if (value)
                     {
+                        // TODO リトライ
                         sensorService.Start();
                     }
                     else
                     {
+                        connection.Disposable = null;
                         sensorService.Stop();
                     }
                 }
             }
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public bool Connected
+        {
+            get => connected;
+            set => SetProperty(ref connected, value);
         }
 
         /// <summary>
@@ -60,9 +74,12 @@
         {
             this.sensorService = sensorService;
 
-            subscription.Disposable = sensorService.ValueStream
-                .ObserveOn(Dispatcher.CurrentDispatcher)
-                .Subscribe(OnSensorValue);
+            subscriptions.Add(sensorService.ConnectionStream
+                .ObserveOnDispatcher()
+                .Subscribe(x => Connected = x));
+            subscriptions.Add(sensorService.ValueStream
+                .ObserveOnDispatcher()
+                .Subscribe(OnSensorValue));
         }
 
         /// <summary>
@@ -70,7 +87,7 @@
         /// </summary>
         public void Dispose()
         {
-            subscription.Dispose();
+            subscriptions.Dispose();
         }
 
         /// <summary>

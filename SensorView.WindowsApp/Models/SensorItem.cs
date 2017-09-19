@@ -8,7 +8,7 @@
 
     public sealed class SensorItem : NotificationObject
     {
-        private double? temperture;
+        private double? temperature;
 
         private double? humidity;
 
@@ -18,10 +18,10 @@
 
         public string DeviceId { get; }
 
-        public double? Temperture
+        public double? Temperature
         {
-            get => temperture;
-            private set => SetProperty(ref temperture, value);
+            get => temperature;
+            private set => SetProperty(ref temperature, value);
         }
 
         public double? Humidity
@@ -38,12 +38,12 @@
 
         public SensorItem(string deviceId)
         {
-            this.DeviceId = deviceId;
+            DeviceId = deviceId;
         }
 
         public void Update(SensorValue value)
         {
-            Temperture = value.Temperture;
+            Temperature = value.Temperature;
             Humidity = value.Humidity;
             Time = value.Time;
         }
