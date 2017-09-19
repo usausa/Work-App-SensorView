@@ -64,7 +64,7 @@
                                 </Style>
                             </Border.Style>
 
-                            <TextBlock DockPanel.Dock="Left" Text="Sensor-XX" FontSize="18" Foreground="White" />
+                            <TextBlock DockPanel.Dock="Left" Text="{Binding DeviceId}" FontSize="18" Foreground="White" />
                         </Border>
                     </DataTemplate>
                 </ListBox.ItemTemplate>

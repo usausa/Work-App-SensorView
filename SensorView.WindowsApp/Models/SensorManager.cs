@@ -1,6 +1,12 @@
 ﻿namespace SensorView.WindowsApp.Models
 {
+    using System;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.Linq;
+    using System.Reactive.Disposables;
+    using System.Reactive.Linq;
+    using System.Windows.Threading;
 
     using SensorView.Services;
 
@@ -11,10 +17,17 @@
     /// </summary>
     public sealed class SensorManager : NotificationObject
     {
+        private readonly SerialDisposable subscription = new SerialDisposable();
+
         private readonly SensorService sensorService;
+
+        private readonly IDictionary<string, SensorItem> sensorsByDeviceId = new Dictionary<string, SensorItem>();
 
         private bool enable;
 
+        /// <summary>
+        ///
+        /// </summary>
         public bool Enable
         {
             get => enable;
@@ -37,7 +50,7 @@
         /// <summary>
         ///
         /// </summary>
-        public ObservableCollection<SensorItem> Sensors { get; }
+        public ObservableCollection<SensorItem> Sensors { get; } = new ObservableCollection<SensorItem>();
 
         /// <summary>
         ///
@@ -47,22 +60,30 @@
         {
             this.sensorService = sensorService;
 
-            // TODO
-            Sensors = new ObservableCollection<SensorItem>
+            subscription.Disposable = sensorService.ValueStream
+                .ObserveOn(Dispatcher.CurrentDispatcher)
+                .Subscribe(OnSensorValue);
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="value"></param>
+        private void OnSensorValue(SensorValue value)
+        {
+            if (!sensorsByDeviceId.TryGetValue(value.DeviceId, out var item))
             {
-                new SensorItem { DeviceId = "000000000001" },
-                new SensorItem { DeviceId = "000000000002" },
-                new SensorItem { DeviceId = "000000000003" },
-                new SensorItem { DeviceId = "000000000004" },
-                new SensorItem { DeviceId = "000000000005" },
-                new SensorItem { DeviceId = "000000000006" },
-                new SensorItem { DeviceId = "000000000007" },
-                new SensorItem { DeviceId = "000000000008" },
-                new SensorItem { DeviceId = "000000000009" },
-                new SensorItem { DeviceId = "000000000010" },
-                new SensorItem { DeviceId = "000000000011" },
-                new SensorItem { DeviceId = "000000000012" }
-            };
+                item = new SensorItem { DeviceId = value.DeviceId };
+                sensorsByDeviceId[value.DeviceId] = item;
+                var index = Sensors
+                    .TakeWhile(x => String.Compare(x.DeviceId, value.DeviceId, StringComparison.OrdinalIgnoreCase) < 0)
+                    .Count();
+                Sensors.Insert(index, item);
+            }
+
+            item.Temperture = value.Temperture;
+            item.Humidity = value.Humidity;
+            item.Time = value.Time;
         }
     }
 }

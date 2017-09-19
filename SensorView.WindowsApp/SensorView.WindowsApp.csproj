@@ -70,6 +70,7 @@
     <Compile Include="Models\SensorItem.cs" />
     <Compile Include="Models\SensorManager.cs" />
     <Compile Include="Views\MainViewModel.cs" />
+    <Compile Include="Views\SensorTileViewModel.cs" />
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -117,6 +118,9 @@
   <ItemGroup>
     <PackageReference Include="Autofac">
       <Version>4.6.1</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>10.0.3</Version>
     </PackageReference>
     <PackageReference Include="OxyPlot.Wpf">
       <Version>1.0.0</Version>
