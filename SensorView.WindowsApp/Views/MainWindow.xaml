@@ -10,7 +10,7 @@
     x:Class="SensorView.WindowsApp.Views.MainWindow"
     d:DataContext="{d:DesignInstance Type={x:Type views:MainViewModel}}"
     WindowStartupLocation="CenterScreen"
-    Title="Sensor View"
+    Title="せんさーびゅー"
     Height="800"
     Width="1024">
 
@@ -71,9 +71,18 @@
                             </Border.Style>
 
                             <StackPanel>
-                                <TextBlock Text="{Binding DeviceId}" FontSize="18" Foreground="White" />
-                                <TextBlock Text="{Binding Temperature}" FontSize="24" Foreground="White" />
-                                <TextBlock Text="{Binding Humidity}" FontSize="24" Foreground="White" />
+                                <DockPanel>
+                                    <TextBlock Text="{Binding DeviceId}" FontSize="18" Foreground="White" />
+                                    <TextBlock DockPanel.Dock="Right" TextAlignment="Right" Text="{Binding Time, StringFormat={}{0:HH:mm:ss}}" FontSize="18" Foreground="White" />
+                                </DockPanel>
+                                <DockPanel>
+                                    <TextBlock Text="{Binding Temperature, StringFormat={}{0:F2}}" FontSize="24" Foreground="White" />
+                                    <TextBlock Text=" ℃" FontSize="24" Foreground="#F290AFC1" />
+                                </DockPanel>
+                                <DockPanel>
+                                    <TextBlock Text="{Binding Humidity, StringFormat={}{0:F2}}" FontSize="24" Foreground="White" />
+                                    <TextBlock Text=" %" FontSize="24" Foreground="#F290AFC1" />
+                                </DockPanel>
                             </StackPanel>
                         </Border>
                     </DataTemplate>
