@@ -79,7 +79,7 @@
         /// <param name="sensorService"></param>
         public SensorManager(SensorService sensorService)
         {
-            this.sensorService = sensorService;
+            this.sensorService = sensorService ?? throw new ArgumentNullException(nameof(sensorService));
 
             subscriptions.Add(sensorService.ConnectionStream
                 .ObserveOnDispatcher()
@@ -94,6 +94,7 @@
         /// </summary>
         public void Dispose()
         {
+            connection.Dispose();
             subscriptions.Dispose();
         }
 

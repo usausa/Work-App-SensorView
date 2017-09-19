@@ -35,6 +35,7 @@
         /// <param name="disposing"></param>
         protected override void Dispose(bool disposing)
         {
+            base.Dispose(disposing);
             SensorManager.Enable = false;
         }
     }

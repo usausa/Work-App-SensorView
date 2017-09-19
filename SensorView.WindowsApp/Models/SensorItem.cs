@@ -41,6 +41,7 @@
             DeviceId = deviceId;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:ValidateArgumentsOfPublicMethods", Justification = "Ignore")]
         public void Update(SensorValue value)
         {
             Temperature = value.Temperature;
