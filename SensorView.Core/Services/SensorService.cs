@@ -8,6 +8,7 @@
     using Newtonsoft.Json.Serialization;
 
     using uPLibrary.Networking.M2Mqtt;
+    using uPLibrary.Networking.M2Mqtt.Exceptions;
     using uPLibrary.Networking.M2Mqtt.Messages;
 
     /// <summary>
@@ -60,16 +61,22 @@
         /// </summary>
         public void Start()
         {
-            var ret = client.Connect(clientId);
-            if (ret == 0)
+            try
             {
-                connectionStream.OnNext(true);
-                client.Subscribe(new[] { topic }, new[] { MqttMsgBase.QOS_LEVEL_AT_MOST_ONCE });
+                var ret = client.Connect(clientId);
+                if (ret == 0)
+                {
+                    connectionStream.OnNext(true);
+                    client.Subscribe(new[] { topic }, new[] { MqttMsgBase.QOS_LEVEL_AT_MOST_ONCE });
+                    return;
+                }
             }
-            else
+            catch (MqttConnectionException e)
             {
-                connectionStream.OnNext(false);
+                System.Diagnostics.Trace.WriteLine(e);
             }
+
+            connectionStream.OnNext(false);
         }
 
         /// <summary>

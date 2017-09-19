@@ -70,7 +70,11 @@
                                 </Style>
                             </Border.Style>
 
-                            <TextBlock DockPanel.Dock="Left" Text="{Binding DeviceId}" FontSize="18" Foreground="White" />
+                            <StackPanel>
+                                <TextBlock Text="{Binding DeviceId}" FontSize="18" Foreground="White" />
+                                <TextBlock Text="{Binding Temperature}" FontSize="24" Foreground="White" />
+                                <TextBlock Text="{Binding Humidity}" FontSize="24" Foreground="White" />
+                            </StackPanel>
                         </Border>
                     </DataTemplate>
                 </ListBox.ItemTemplate>

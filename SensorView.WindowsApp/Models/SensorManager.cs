@@ -40,7 +40,14 @@
                 {
                     if (value)
                     {
-                        // TODO リトライ
+                        connection.Disposable = sensorService.ConnectionStream
+                            .TakeWhile(x => !x)
+                            .Repeat()
+                            .SelectMany(x => Observable.Timer(TimeSpan.FromSeconds(5)))
+                            .Subscribe(x =>
+                            {
+                                sensorService.Start();
+                            });
                         sensorService.Start();
                     }
                     else
