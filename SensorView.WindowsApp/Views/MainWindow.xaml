@@ -5,7 +5,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:views="clr-namespace:SensorView.WindowsApp.Views"
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-    xmlns:behaviors="clr-namespace:SensorView.WindowsApp.Behaviors"
+    xmlns:si="clr-namespace:Smart.Windows.Interactivity;assembly=Smart.Windows"
     mc:Ignorable="d"
     x:Class="SensorView.WindowsApp.Views.MainWindow"
     d:DataContext="{d:DesignInstance Type={x:Type views:MainViewModel}}"
@@ -36,7 +36,7 @@
                 Background="{StaticResource TileBackgroundBrush}"
                 BorderThickness="0">
                 <i:Interaction.Behaviors>
-                    <behaviors:ListBoxSelectionBehavior SelectedItem="{Binding SelectedItem}" />
+                    <si:ListBoxSingleSelectionBehavior SelectedItem="{Binding SelectedItem}" />
                 </i:Interaction.Behaviors>
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
