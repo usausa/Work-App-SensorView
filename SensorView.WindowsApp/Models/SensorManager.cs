@@ -15,7 +15,7 @@
     /// <summary>
     ///
     /// </summary>
-    public sealed class SensorManager : NotificationObject
+    public sealed class SensorManager : NotificationObject, IDisposable
     {
         private readonly SerialDisposable subscription = new SerialDisposable();
 
@@ -68,12 +68,20 @@
         /// <summary>
         ///
         /// </summary>
+        public void Dispose()
+        {
+            subscription.Dispose();
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
         /// <param name="value"></param>
         private void OnSensorValue(SensorValue value)
         {
             if (!sensorsByDeviceId.TryGetValue(value.DeviceId, out var item))
             {
-                item = new SensorItem { DeviceId = value.DeviceId };
+                item = new SensorItem(value.DeviceId);
                 sensorsByDeviceId[value.DeviceId] = item;
                 var index = Sensors
                     .TakeWhile(x => String.Compare(x.DeviceId, value.DeviceId, StringComparison.OrdinalIgnoreCase) < 0)
@@ -81,9 +89,7 @@
                 Sensors.Insert(index, item);
             }
 
-            item.Temperture = value.Temperture;
-            item.Humidity = value.Humidity;
-            item.Time = value.Time;
+            item.Update(value);
         }
     }
 }

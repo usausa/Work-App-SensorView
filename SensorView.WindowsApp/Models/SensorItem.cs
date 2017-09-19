@@ -1,40 +1,51 @@
 ﻿namespace SensorView.WindowsApp.Models
 {
     using System;
+
+    using SensorView.Services;
+
     using Smart.ComponentModel;
 
     public sealed class SensorItem : NotificationObject
     {
-        private string deviceId;
-
         private double? temperture;
 
         private double? humidity;
 
         private DateTime time;
 
-        public string DeviceId
-        {
-            get => deviceId;
-            set => SetProperty(ref deviceId, value);
-        }
+        // TODO 時系列データ
+
+        public string DeviceId { get; }
 
         public double? Temperture
         {
             get => temperture;
-            set => SetProperty(ref temperture, value);
+            private set => SetProperty(ref temperture, value);
         }
 
         public double? Humidity
         {
             get => humidity;
-            set => SetProperty(ref humidity, value);
+            private set => SetProperty(ref humidity, value);
         }
 
         public DateTime Time
         {
             get => time;
-            set => SetProperty(ref time, value);
+            private set => SetProperty(ref time, value);
+        }
+
+        public SensorItem(string deviceId)
+        {
+            this.DeviceId = deviceId;
+        }
+
+        public void Update(SensorValue value)
+        {
+            Temperture = value.Temperture;
+            Humidity = value.Humidity;
+            Time = value.Time;
         }
     }
 }
