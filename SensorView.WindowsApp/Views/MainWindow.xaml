@@ -64,7 +64,6 @@
                             Height="84"
                             Width="320"
                             Margin="5,5,0,0">
-
                             <Border.Style>
                                 <Style>
                                     <Setter Property="Border.Background" Value="{StaticResource TileDefaultBrush}"/>
@@ -78,15 +77,14 @@
                                     </Style.Triggers>
                                 </Style>
                             </Border.Style>
-
                             <StackPanel Margin="6,3">
                                 <DockPanel>
                                     <TextBlock FontSize="14">
-                                        <Run Text="Device: " Foreground="#F290AFC1"/>
+                                        <Run Text="DeviceId:" Foreground="#F290AFC1"/>
                                         <Run Text="{Binding DeviceId, Mode=OneWay}" Foreground="White"/>
                                     </TextBlock>
                                     <TextBlock DockPanel.Dock="Right" TextAlignment="Right" FontSize="14">
-                                        <Run Text="UpdatedAt: " Foreground="#F290AFC1"/>
+                                        <Run Text="UpdatedAt:" Foreground="#F290AFC1"/>
                                         <Run Text="{Binding Time, Mode=OneWay, StringFormat={}{0:HH:mm:ss}}" Foreground="White"/>
                                     </TextBlock>
                                 </DockPanel>
@@ -95,7 +93,6 @@
                                         <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
-
                                     <TextBlock Grid.Column="0">
                                         <Run Text="{Binding Temperature, Mode=OneWay, StringFormat={}{0:F2}}" FontSize="36" Foreground="White"/>
                                         <Run Text="℃" Foreground="#F290AFC1" FontSize="24" />
