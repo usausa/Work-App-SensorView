@@ -9,6 +9,8 @@
     /// </summary>
     public sealed class MainViewModel : DisposableViewModelBase
     {
+        private SensorItem selectedItem;
+
         /// <summary>
         ///
         /// </summary>
@@ -17,7 +19,11 @@
         /// <summary>
         ///
         /// </summary>
-        public SensorItem SelectedItem { get; set; }
+        public SensorItem SelectedItem
+        {
+            get => selectedItem;
+            set => SetProperty(ref selectedItem, value);
+        }
 
         /// <summary>
         ///

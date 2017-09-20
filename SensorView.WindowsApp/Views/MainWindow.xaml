@@ -8,6 +8,8 @@
     xmlns:si="clr-namespace:Smart.Windows.Interactivity;assembly=Smart.Windows"
     xmlns:oxy="http://oxyplot.org/wpf"
     xmlns:data="clr-namespace:Smart.Windows.Data;assembly=Smart.Windows"
+    xmlns:models="clr-namespace:SensorView.WindowsApp.Models"
+    xmlns:converters="clr-namespace:SensorView.WindowsApp.Converters"
     mc:Ignorable="d"
     x:Class="SensorView.WindowsApp.Views.MainWindow"
     d:DataContext="{d:DesignInstance Type={x:Type views:MainViewModel}}"
@@ -23,6 +25,7 @@
         <SolidColorBrush x:Key="TileMouseOverBrush" Color="#FF2F5078" />
         <SolidColorBrush x:Key="SplitterBrush" Color="#FF1A212A" />
         <SolidColorBrush x:Key="StatusBarBrush" Color="#FFDEE3E8" />
+        <converters:DateTimeAxisConverter x:Key="DateTimeAxisConverter" />
         <data:ConditionConverter x:Key="ConnectionStatusConverter" TrueValue="Connected" FalseValue="-" />
     </Window.Resources>
 
@@ -87,14 +90,21 @@
                                         <Run Text="{Binding Time, Mode=OneWay, StringFormat={}{0:HH:mm:ss}}" Foreground="White"/>
                                     </TextBlock>
                                 </DockPanel>
-                                <DockPanel>
-                                    <TextBlock Text="{Binding Temperature, StringFormat={}{0:F2}}" FontSize="18" Foreground="White" />
-                                    <TextBlock Text=" ℃" FontSize="18" Foreground="#F290AFC1" />
-                                </DockPanel>
-                                <DockPanel>
-                                    <TextBlock Text="{Binding Humidity, StringFormat={}{0:F2}}" FontSize="18" Foreground="White" />
-                                    <TextBlock Text=" %" FontSize="18" Foreground="#F290AFC1" />
-                                </DockPanel>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Grid.Column="0">
+                                        <Run Text="{Binding Temperature, Mode=OneWay, StringFormat={}{0:F2}}" FontSize="36" Foreground="White"/>
+                                        <Run Text="℃" Foreground="#F290AFC1" FontSize="24" />
+                                    </TextBlock>
+                                    <TextBlock Grid.Column="1">
+                                        <Run Text="{Binding Humidity, Mode=OneWay, StringFormat={}{0:F2}}" FontSize="36" Foreground="White"/>
+                                        <Run Text="%" Foreground="#F290AFC1"  FontSize="24"/>
+                                    </TextBlock>
+                                </Grid>
                             </StackPanel>
                         </Border>
                     </DataTemplate>
@@ -115,7 +125,61 @@
 
         <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="7" Background="{StaticResource SplitterBrush}" />
 
-        <ContentControl Grid.Row="2">
+        <ContentControl Grid.Row="2" Content="{Binding SelectedItem}">
+            <ContentControl.Resources>
+                <DataTemplate DataType="{x:Type models:SensorItem}">
+                    <oxy:Plot Background="{StaticResource BackgroundBrush}" PlotAreaBorderColor="Gray">
+                        <oxy:Plot.Axes >
+                            <oxy:LinearAxis
+                                Key="Temperture"
+                                Position="Left"
+                                AxislineColor="Gray"
+                                MajorGridlineStyle="Solid"
+                                MajorGridlineColor="Gray"
+                                MinorGridlineStyle="Dot"
+                                MinorGridlineColor="Gray"
+                                TicklineColor="Gray"
+                                TextColor="Gray"
+                                IntervalLength="25"
+                                Minimum="0"
+                                Maximum="40"/>
+                            <oxy:LinearAxis
+                                Key="Humidity"
+                                Position="Right"
+                                AxislineColor="Gray"
+                                TicklineColor="Gray"
+                                TextColor="Gray"
+                                IntervalLength="25"
+                                Minimum="0"
+                                Maximum="100"/>
+                            <oxy:DateTimeAxis Position="Bottom"
+                                              AxislineColor="Gray"
+                                              MajorGridlineStyle="Solid"
+                                              MajorGridlineColor="Gray"
+                                              MinorGridlineStyle="Dot"
+                                              MinorGridlineColor="Gray"
+                                              TicklineColor="Gray"
+                                              TextColor="Gray"
+                                              StringFormat="HH:mm:ss"
+                                              Maximum="{Binding Time, Converter={StaticResource DateTimeAxisConverter}}"
+                                              Minimum="{Binding Time, Converter={StaticResource DateTimeAxisConverter}, ConverterParameter=-1800}"/>
+                        </oxy:Plot.Axes>
+                        <oxy:Plot.Series>
+                            <oxy:AreaSeries
+                                ItemsSource="{Binding Humidities}"
+                                YAxisKey="Humidity"
+                                LineStyle="Solid"
+                                Color="Aqua" />
+                            <oxy:LineSeries
+                                ItemsSource="{Binding Temperatures}"
+                                YAxisKey="Temperture"
+                                MarkerSize="1.5"
+                                MarkerType="Circle"
+                                MarkerFill="GreenYellow"/>
+                        </oxy:Plot.Series>
+                    </oxy:Plot>
+                </DataTemplate>
+            </ContentControl.Resources>
         </ContentControl>
 
         <Grid Grid.Row="3" Background="{StaticResource StatusBarBrush}">
