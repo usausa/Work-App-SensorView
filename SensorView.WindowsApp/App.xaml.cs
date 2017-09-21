@@ -1,6 +1,7 @@
 ﻿namespace SensorView.WindowsApp
 {
     using System;
+    using System.Configuration;
     using System.Windows;
 
     using Autofac;
@@ -53,8 +54,10 @@
         {
             var builder = new ContainerBuilder();
 
-            // TODO
-            builder.Register(r => new SensorService("mqtt-broker", Guid.NewGuid().ToString(), "sensor/#")).SingleInstance();
+            builder.Register(r => new SensorService(
+                ConfigurationManager.AppSettings["Host"],
+                Guid.NewGuid().ToString(),
+                ConfigurationManager.AppSettings["Topic"])).SingleInstance();
 
             builder.RegisterType<SensorManager>().SingleInstance();
 
