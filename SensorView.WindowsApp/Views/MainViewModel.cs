@@ -7,7 +7,7 @@
     /// <summary>
     ///
     /// </summary>
-    public sealed class MainViewModel : DisposableViewModelBase
+    public sealed class MainViewModel : ViewModelBase
     {
         private SensorItem selectedItem;
 
