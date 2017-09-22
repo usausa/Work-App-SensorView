@@ -7,7 +7,7 @@
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     xmlns:si="clr-namespace:Smart.Windows.Interactivity;assembly=Smart.Windows"
     xmlns:oxy="http://oxyplot.org/wpf"
-    xmlns:data="clr-namespace:Smart.Windows.Data;assembly=Smart.Windows"
+    xmlns:sdata="clr-namespace:Smart.Windows.Data;assembly=Smart.Windows"
     xmlns:models="clr-namespace:SensorView.WindowsApp.Models"
     xmlns:converters="clr-namespace:SensorView.WindowsApp.Converters"
     mc:Ignorable="d"
@@ -25,8 +25,10 @@
         <SolidColorBrush x:Key="TileMouseOverBrush" Color="#FF2F5078" />
         <SolidColorBrush x:Key="SplitterBrush" Color="#FF1A212A" />
         <SolidColorBrush x:Key="StatusBarBrush" Color="#FFDEE3E8" />
+        <SolidColorBrush x:Key="PrimaryForeground" Color="#FFFFFFFF" />
+        <SolidColorBrush x:Key="SecondaryForeground" Color="#FF90AFC1" />
         <converters:DateTimeAxisConverter x:Key="DateTimeAxisConverter" />
-        <data:ConditionConverter x:Key="ConnectionStatusConverter" TrueValue="Connected" FalseValue="-" />
+        <sdata:ConditionConverter x:Key="ConnectionStatusConverter" TrueValue="Connected" FalseValue="-" />
     </Window.Resources>
 
     <i:Interaction.Triggers>
@@ -43,6 +45,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
+        <!-- 0.List -->
         <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto" >
             <ListBox
                 SelectionMode="Single"
@@ -60,10 +63,7 @@
                 </ListBox.ItemsPanel>
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Border
-                            Height="84"
-                            Width="320"
-                            Margin="5,5,0,0">
+                        <Border Height="84" Width="320" Margin="5,5,0,0">
                             <Border.Style>
                                 <Style>
                                     <Setter Property="Border.Background" Value="{StaticResource TileDefaultBrush}"/>
@@ -80,12 +80,12 @@
                             <StackPanel Margin="6,3">
                                 <DockPanel>
                                     <TextBlock FontSize="14">
-                                        <Run Text="DeviceId:" Foreground="#F290AFC1"/>
-                                        <Run Text="{Binding DeviceId, Mode=OneWay}" Foreground="White"/>
+                                        <Run Text="DeviceId:" Foreground="{StaticResource SecondaryForeground}"/>
+                                        <Run Text="{Binding DeviceId, Mode=OneWay}" Foreground="{StaticResource PrimaryForeground}"/>
                                     </TextBlock>
                                     <TextBlock DockPanel.Dock="Right" TextAlignment="Right" FontSize="14">
-                                        <Run Text="UpdatedAt:" Foreground="#F290AFC1"/>
-                                        <Run Text="{Binding Time, Mode=OneWay, StringFormat={}{0:HH:mm:ss}}" Foreground="White"/>
+                                        <Run Text="UpdatedAt:" Foreground="{StaticResource SecondaryForeground}"/>
+                                        <Run Text="{Binding Time, Mode=OneWay, StringFormat={}{0:HH:mm:ss}}" Foreground="{StaticResource PrimaryForeground}"/>
                                     </TextBlock>
                                 </DockPanel>
                                 <Grid>
@@ -94,12 +94,12 @@
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Grid.Column="0">
-                                        <Run Text="{Binding Temperature, Mode=OneWay, StringFormat={}{0:F2}}" FontSize="36" Foreground="White"/>
-                                        <Run Text="℃" Foreground="#F290AFC1" FontSize="24" />
+                                        <Run Text="{Binding Temperature, Mode=OneWay, StringFormat={}{0:F2}}" FontSize="36" Foreground="{StaticResource PrimaryForeground}"/>
+                                        <Run Text="℃" Foreground="{StaticResource SecondaryForeground}" FontSize="24" />
                                     </TextBlock>
                                     <TextBlock Grid.Column="1">
-                                        <Run Text="{Binding Humidity, Mode=OneWay, StringFormat={}{0:F2}}" FontSize="36" Foreground="White"/>
-                                        <Run Text="%" Foreground="#F290AFC1"  FontSize="24"/>
+                                        <Run Text="{Binding Humidity, Mode=OneWay, StringFormat={}{0:F2}}" FontSize="36" Foreground="{StaticResource PrimaryForeground}"/>
+                                        <Run Text="%" Foreground="{StaticResource SecondaryForeground}"  FontSize="24"/>
                                     </TextBlock>
                                 </Grid>
                             </StackPanel>
@@ -120,8 +120,10 @@
             </ListBox>
         </ScrollViewer>
 
+        <!-- 1.Splitter -->
         <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="7" Background="{StaticResource SplitterBrush}" />
 
+        <!-- 2.Chart -->
         <ContentControl Grid.Row="2" Content="{Binding SelectedItem}">
             <ContentControl.Resources>
                 <DataTemplate DataType="{x:Type models:SensorItem}">
@@ -149,19 +151,20 @@
                                 IntervalLength="25"
                                 Minimum="0"
                                 Maximum="100"/>
-                            <oxy:DateTimeAxis Position="Bottom"
-                                              AxislineColor="Gray"
-                                              MajorGridlineStyle="Solid"
-                                              MajorGridlineColor="Gray"
-                                              MinorGridlineStyle="Dot"
-                                              MinorGridlineColor="Gray"
-                                              TicklineColor="Gray"
-                                              TextColor="Gray"
-                                              IntervalType="Minutes"
-                                              IntervalLength="30"
-                                              StringFormat="HH:mm"
-                                              Maximum="{Binding Time, Converter={StaticResource DateTimeAxisConverter}}"
-                                              Minimum="{Binding Time, Converter={StaticResource DateTimeAxisConverter}, ConverterParameter=-1800}"/>
+                            <oxy:DateTimeAxis
+                                Position="Bottom"
+                                AxislineColor="Gray"
+                                MajorGridlineStyle="Solid"
+                                MajorGridlineColor="Gray"
+                                MinorGridlineStyle="Dot"
+                                MinorGridlineColor="Gray"
+                                TicklineColor="Gray"
+                                TextColor="Gray"
+                                IntervalType="Minutes"
+                                IntervalLength="30"
+                                StringFormat="HH:mm"
+                                Maximum="{Binding Time, Converter={StaticResource DateTimeAxisConverter}}"
+                                Minimum="{Binding Time, Converter={StaticResource DateTimeAxisConverter}, ConverterParameter=-1800}"/>
                         </oxy:Plot.Axes>
                         <oxy:Plot.Series>
                             <oxy:AreaSeries
@@ -181,6 +184,7 @@
             </ContentControl.Resources>
         </ContentControl>
 
+        <!-- 3.StatusBar -->
         <Grid Grid.Row="3" Background="{StaticResource StatusBarBrush}">
             <TextBlock FontSize="14" Margin="10,3">
                 <Run Text="Status: "/>
