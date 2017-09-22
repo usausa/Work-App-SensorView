@@ -93,11 +93,11 @@
                                         <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0">
+                                    <TextBlock Grid.Column="0" TextAlignment="Right">
                                         <Run Text="{Binding Temperature, Mode=OneWay, StringFormat={}{0:F2}}" FontSize="36" Foreground="{StaticResource PrimaryForeground}"/>
                                         <Run Text="℃" Foreground="{StaticResource SecondaryForeground}" FontSize="24" />
                                     </TextBlock>
-                                    <TextBlock Grid.Column="1">
+                                    <TextBlock Grid.Column="1" TextAlignment="Right">
                                         <Run Text="{Binding Humidity, Mode=OneWay, StringFormat={}{0:F2}}" FontSize="36" Foreground="{StaticResource PrimaryForeground}"/>
                                         <Run Text="%" Foreground="{StaticResource SecondaryForeground}"  FontSize="24"/>
                                     </TextBlock>
