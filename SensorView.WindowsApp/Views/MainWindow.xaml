@@ -157,7 +157,9 @@
                                               MinorGridlineColor="Gray"
                                               TicklineColor="Gray"
                                               TextColor="Gray"
-                                              StringFormat="HH:mm:ss"
+                                              IntervalType="Minutes"
+                                              IntervalLength="30"
+                                              StringFormat="HH:mm"
                                               Maximum="{Binding Time, Converter={StaticResource DateTimeAxisConverter}}"
                                               Minimum="{Binding Time, Converter={StaticResource DateTimeAxisConverter}, ConverterParameter=-1800}"/>
                         </oxy:Plot.Axes>
