@@ -10,36 +10,59 @@
 
     using Smart.ComponentModel;
 
+    /// <summary>
+    ///
+    /// </summary>
     public sealed class SensorItem : NotificationObject
     {
+        private const int MaxHistorySize = 720;
+
         private double? temperature;
 
         private double? humidity;
 
         private DateTime time;
 
+        /// <summary>
+        ///
+        /// </summary>
         public string DeviceId { get; }
 
+        /// <summary>
+        ///
+        /// </summary>
         public double? Temperature
         {
             get => temperature;
             private set => SetProperty(ref temperature, value);
         }
 
+        /// <summary>
+        ///
+        /// </summary>
         public double? Humidity
         {
             get => humidity;
             private set => SetProperty(ref humidity, value);
         }
 
+        /// <summary>
+        ///
+        /// </summary>
         public DateTime Time
         {
             get => time;
             private set => SetProperty(ref time, value);
         }
 
+        /// <summary>
+        ///
+        /// </summary>
         public ObservableCollection<DataPoint> Temperatures { get; } = new ObservableCollection<DataPoint>();
 
+        /// <summary>
+        ///
+        /// </summary>
         public ObservableCollection<DataPoint> Humidities { get; } = new ObservableCollection<DataPoint>();
 
         /// <summary>
@@ -60,19 +83,21 @@
         {
             if (value.Temperature.HasValue)
             {
-                if (Temperatures.Count > 72)
+                if (Temperatures.Count >= MaxHistorySize)
                 {
                     Temperatures.RemoveAt(0);
                 }
+
                 Temperatures.Add(new DataPoint(Axis.ToDouble(value.Time), value.Temperature.Value));
             }
 
             if (value.Humidity.HasValue)
             {
-                if (Humidities.Count > 72)
+                if (Humidities.Count >= MaxHistorySize)
                 {
                     Humidities.RemoveAt(0);
                 }
+
                 Humidities.Add(new DataPoint(Axis.ToDouble(value.Time), value.Humidity.Value));
             }
 
