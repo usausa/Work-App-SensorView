@@ -4,18 +4,18 @@
     using System.Configuration;
     using System.Windows;
 
-    using Autofac;
-
     using SensorView.Services;
     using SensorView.WindowsApp.Models;
     using SensorView.WindowsApp.Views;
+
+    using Smart.Resolver;
 
     /// <summary>
     /// App.xaml の相互作用ロジック
     /// </summary>
     public partial class App
     {
-        private IContainer container;
+        private IResolver resolver;
 
         /// <summary>
         ///
@@ -30,7 +30,7 @@
 
             RegisterComponents();
 
-            MainWindow = container.Resolve<MainWindow>();
+            MainWindow = resolver.Get<MainWindow>();
             MainWindow.Show();
         }
 
@@ -52,19 +52,19 @@
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Ignore")]
         private void RegisterComponents()
         {
-            var builder = new ContainerBuilder();
+            var config = new ResolverConfig();
 
-            builder.Register(r => new SensorService(
+            config.Bind<SensorService>().ToConstant(new SensorService(
                 ConfigurationManager.AppSettings["Host"],
                 Guid.NewGuid().ToString(),
-                ConfigurationManager.AppSettings["Topic"])).SingleInstance();
+                ConfigurationManager.AppSettings["Topic"])).InSingletonScope();
 
-            builder.RegisterType<SensorManager>().SingleInstance();
+            config.Bind<SensorManager>().ToSelf().InSingletonScope();
 
-            builder.RegisterType<MainViewModel>().SingleInstance();
-            builder.RegisterType<MainWindow>().SingleInstance();
+            config.Bind<MainViewModel>().ToSelf().InSingletonScope();
+            config.Bind<MainWindow>().ToSelf().InSingletonScope();
 
-            container = builder.Build();
+            resolver = config.ToResolver();
         }
     }
 }
