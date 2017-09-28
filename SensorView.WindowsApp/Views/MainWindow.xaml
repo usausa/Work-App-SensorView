@@ -14,7 +14,7 @@
     x:Class="SensorView.WindowsApp.Views.MainWindow"
     d:DataContext="{d:DesignInstance Type={x:Type views:MainViewModel}}"
     WindowStartupLocation="CenterScreen"
-    Title="せんさーびゅー"
+    Title="Sensor View"
     Height="800"
     Width="1024">
 
