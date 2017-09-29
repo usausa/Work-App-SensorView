@@ -21,7 +21,7 @@
             ContractResolver = new CamelCasePropertyNamesContractResolver()
         };
 
-        private readonly MqttClient client;
+        private readonly string host;
 
         private readonly string clientId;
 
@@ -30,6 +30,8 @@
         private readonly Subject<SensorValue> valueStream = new Subject<SensorValue>();
 
         private readonly Subject<bool> connectionStream = new Subject<bool>();
+
+        private MqttClient client;
 
         /// <summary>
         ///
@@ -49,9 +51,7 @@
         /// <param name="topic"></param>
         public SensorService(string host, string clientId, string topic)
         {
-            client = new MqttClient(host);
-            client.MqttMsgPublishReceived += OnMqttMsgPublishReceived;
-            client.ConnectionClosed += (sender, args) => { connectionStream.OnNext(false); };
+            this.host = host;
             this.clientId = clientId;
             this.topic = topic;
         }
@@ -63,6 +63,10 @@
         {
             try
             {
+                client = new MqttClient(host);
+                client.MqttMsgPublishReceived += OnMqttMsgPublishReceived;
+                client.ConnectionClosed += (sender, args) => { connectionStream.OnNext(false); };
+
                 var ret = client.Connect(clientId);
                 if (ret == 0)
                 {
@@ -75,6 +79,10 @@
             {
                 System.Diagnostics.Trace.WriteLine(e);
             }
+            catch (AggregateException e)
+            {
+                System.Diagnostics.Trace.WriteLine(e);
+            }
 
             connectionStream.OnNext(false);
         }
@@ -84,9 +92,10 @@
         /// </summary>
         public void Stop()
         {
-            if (client.IsConnected)
+            if (client?.IsConnected ?? false)
             {
                 client.Disconnect();
+                client = null;
             }
         }
 
